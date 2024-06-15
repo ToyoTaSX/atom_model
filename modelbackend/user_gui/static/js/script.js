@@ -1,30 +1,31 @@
 document.getElementById('photo-input').addEventListener('change', function(event) {
     const files = event.target.files;
     if (files) {
-        const formData = new FormData();
-        formData.append('image', files[0]);
+        const preview = document.getElementById('preview');
+        preview.innerHTML = ''; // Очищаем предыдущие превью
 
-        fetch('/api/get_photo_class/', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.image_base64) {
-                // Создаем элемент img для отображения обработанного изображения
-                const imgElement = document.createElement('img');
-                imgElement.src = 'data:image/png;base64,' + data.image_base64;
+        Array.from(files).forEach(file => {
+            const formData = new FormData();
+            formData.append('image', file);
 
-                // Очищаем предыдущие превью и добавляем новое изображение
-                const preview = document.getElementById('preview');
-                preview.innerHTML = '';
-                preview.appendChild(imgElement);
-            } else {
-                console.error('Ответ сервера не содержит image_base64');
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка при отправке или получении изображения:', error);
+            fetch('/api/get_photo_class/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.image_base64) {
+                    // Создаем элемент img для отображения обработанного изображения
+                    const imgElement = document.createElement('img');
+                    imgElement.src = 'data:image/png;base64,' + data.image_base64;
+                    preview.appendChild(imgElement); // Добавляем новое изображение в превью
+                } else {
+                    console.error('Ответ сервера не содержит image_base64');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при отправке или получении изображения:', error);
+            });
         });
     }
 });
