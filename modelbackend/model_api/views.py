@@ -44,7 +44,6 @@ def get_photo_class(request):
 
     path_to_res = os.path.join('model_api', 'model', 'core', 'runs', 'detect', dirname)
     path_to_txt_dir = os.path.join(path_to_res, 'labels')
-    path_to_out_img = os.path.join(path_to_txt_dir, 'out_img.png')
     response_data = {}
     try:
         run(
