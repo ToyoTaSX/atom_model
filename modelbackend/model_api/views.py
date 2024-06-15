@@ -45,7 +45,7 @@ def get_photo_class(request):
     path_to_res = os.path.join('model_api', 'model', 'core', 'runs', 'detect', dirname)
     path_to_txt_dir = os.path.join(path_to_res, 'labels')
     path_to_out_img = os.path.join(path_to_txt_dir, 'out_img.png')
-
+    response_data = {}
     try:
         run(
             weights='model_api/model/weights.pt',
@@ -60,18 +60,18 @@ def get_photo_class(request):
         with open(path_to_txt, 'r') as F:
             defects = [get_tuple_from_txt_line(line) for line in F.readlines()]
         out_img = render_bounds(image_path, defects)
-        print(image_to_base64(out_img)[:50])
-        #out_img.save(path_to_out_img)
+        img_content = image_to_base64(out_img)
+        response_data['image_base64'] = img_content
 
     finally:
         if os.path.exists(image_path):
             os.remove(image_path)
             pass
         if os.path.exists(path_to_res):
-            #shutil.rmtree(path_to_res)
+            shutil.rmtree(path_to_res)
             pass
 
-    return Response({}, status=status.HTTP_200_OK)
+    return Response(response_data, status=status.HTTP_200_OK)
 
 def get_tuple_from_txt_line(line):
     line = line.split()
