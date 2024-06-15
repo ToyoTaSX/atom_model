@@ -1,0 +1,56 @@
+body {
+  background: radial-gradient(closest-corner, rgba(16, 47, 70, 0) 60%, rgba(16, 47, 70, 0.26)), linear-gradient(120deg, #8d1375, #1A2980 90%);
+  background-attachment: fixed;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #040c30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    min-height: 100vh;
+    margin: 0;
+    width: 100%;
+
+}
+.container {
+    background: #ffffff;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 100%);
+    color: rgb(65 65 65);
+    text-align: center;
+    margin: 25px 100px;
+}
+.upload-btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: #0059b8;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+.upload-btn:hover {
+    background-color: #0056b3;
+}
+input[type="file"] {
+    display: none;
+}
+.preview {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.preview img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+}
