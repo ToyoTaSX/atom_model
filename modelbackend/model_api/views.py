@@ -1,6 +1,7 @@
 import base64
 import os
 import random
+import time
 import uuid
 import shutil
 from io import BytesIO
@@ -57,12 +58,18 @@ def get_photo_class(request):
             save_txt=True,
             nosave=True,
             name=dirname)
-        path_to_txt = os.path.join(path_to_txt_dir, os.listdir(path_to_txt_dir)[0])
-        with open(path_to_txt, 'r') as F:
-            defects = [get_tuple_from_txt_line(line) for line in F.readlines()]
-        out_img = render_bounds(image_path, defects)
-        img_content = image_to_base64(out_img)
-        response_data['image_base64'] = img_content
+        if len(os.listdir(path_to_txt_dir)) == 0:
+            out_img = Image.open(image_path)
+            img_content = image_to_base64(out_img)
+            response_data['image_base64'] = img_content
+
+        else:
+            path_to_txt = os.path.join(path_to_txt_dir, os.listdir(path_to_txt_dir)[0])
+            with open(path_to_txt, 'r') as F:
+                defects = [get_tuple_from_txt_line(line) for line in F.readlines()]
+            out_img = render_bounds(image_path, defects)
+            img_content = image_to_base64(out_img)
+            response_data['image_base64'] = img_content
 
     finally:
         if os.path.exists(image_path):
