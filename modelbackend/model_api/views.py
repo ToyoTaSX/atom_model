@@ -12,6 +12,7 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 
+from django.views.decorators.csrf import csrf_exempt
 from model_api.model.core.detect import run, smart_inference_mode
 from typing import List, Tuple
 
@@ -32,6 +33,7 @@ defects_translate = {
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
+@csrf_exempt
 def get_photo_class(request):
     if 'image' not in request.data:
         return Response({"error": "No image file provided"}, status=status.HTTP_400_BAD_REQUEST)
