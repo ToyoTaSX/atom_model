@@ -14,8 +14,8 @@ body {
     height: fit-content;
     min-height: 100vh;
     margin: 0;
-    width: 100%;
-
+    /* width: 100%; */
+    padding: 0px 50px;
 }
 .container {
     background: #ffffff;

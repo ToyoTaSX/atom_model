@@ -51,7 +51,7 @@ def get_photo_class(request):
             conf_thres=0.1,
             imgsz=image_size,
             source=image_path,
-            device='cpu',
+            device='',
             save_txt=True,
             nosave=True,
             name=dirname)
