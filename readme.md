@@ -8,8 +8,14 @@
     
     Добавьте свой хост в список
     ALLOWED_HOSTS = []
-3.Запустить main.py 
 
-    python main.py
+3.Вставьте файл с весами модели по пути:
+
+    modelbackend/model_api/model/weights.pt
+
+4.Запустите приложение
+
+    python manage.py runserver
+
 
 <b>Готово</b>
